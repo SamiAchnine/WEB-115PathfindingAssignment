@@ -66,26 +66,27 @@ function gridDisplay(grid) {
 }
 
 plusX.addEventListener("click", () => {
-    let infoDiv = document.getElementById("sizeX");
-    infoDiv.innerHTML = "Current Grid Width: " + targetX;
+    refreshGridInfo();
     targetX += 1;
     grid = gridMaker(targetX, targetY);
 });
 plusY.addEventListener("click", () => {
-    let infoDiv = document.getElementById("sizeY");
-    infoDiv.innerHTML = "Current Grid Height: " + targetY;
+    refreshGridInfo();
     targetY += 1;
     grid = gridMaker(targetX, targetY);
 });
 
 refreshGrid.addEventListener("click", () => {
-    let infoYDiv = document.getElementById("sizeY");
-    infoYDiv.innerHTML = "Current Grid Height: " + targetY;
-    let infoXDiv = document.getElementById("sizeY");
-    infoXDiv.innerHTML = "Current Grid Height: " + targetX;
+    refreshGridInfo();
     let gridDiv = document.getElementById("gridOutput");
     gridDiv.innerHTML = "";
     gridDisplay(grid);
 });
 
 gridDisplay(grid);
+function refreshGridInfo() {
+    let infoYDiv = document.getElementById("sizeY");
+    infoYDiv.innerHTML = "Current Grid Height: " + targetY;
+    let infoXDiv = document.getElementById("sizeX");
+    infoXDiv.innerHTML = "Current Grid Width: " + targetX;
+}
