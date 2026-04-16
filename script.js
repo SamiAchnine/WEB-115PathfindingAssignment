@@ -66,13 +66,15 @@ function gridDisplay(grid) {
 }
 
 plusX.addEventListener("click", () => {
-    refreshGridInfo();
+    
     targetX += 1;
+    refreshGridInfo();
     grid = gridMaker(targetX, targetY);
 });
 plusY.addEventListener("click", () => {
-    refreshGridInfo();
+    
     targetY += 1;
+    refreshGridInfo();
     grid = gridMaker(targetX, targetY);
 });
 
