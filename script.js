@@ -106,10 +106,40 @@ function clicker() {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
             gridItemDomItem.addEventListener("click", () => {
-                console.log("Yep, it's me, the cell at " + i + ", " + j + " being clicked on!")
+                if (gridItem.isRoadBlock === true) {
+                    gridItem.isRoadBlock = false;
+                }
+                else {
+                    gridItem.isRoadBlock = true;
+                }
+                colorChanger();
             });
         }
     }
-
 }
 
+function colorChanger() {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            let gridItem = grid[i][j];
+            let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
+            gridItemDomItem.addEventListener("click", () => {
+                if (gridItem.isGoal === true) {
+                    gridItemDomItem.style.backgroundColor = "Green";
+                }
+                else if (gridItem.isRoadBlock === true) {
+                    gridItemDomItem.style.backgroundColor = "rgb(26, 26, 26)";
+                } 
+                else if (gridItem.isStart === true) {
+                    gridItemDomItem.style.backgroundColor = "Red";
+                }
+                else if (gridItem.isVisited === true) {
+                    gridItemDomItem.style.backgroundColor = "Peru";
+                }
+                else {
+                    gridItemDomItem.style.backgroundColor = "Gray";
+                }
+            });
+        }
+    }
+}
