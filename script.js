@@ -1,5 +1,7 @@
 let plusX = document.getElementById("X");
 let plusY = document.getElementById("Y");
+let goalX = document.getElementById("goalX");
+let goalY = document.getElementById("goalY");
 let refreshGrid = document.getElementById("refreshGrid");
 let targetX = 5;
 let targetY = 5;
@@ -25,7 +27,6 @@ function gridMaker(targetX, targetY) {
             grid[i][j] = new Tile(false, false, false, false);
         }
     }
-    
     return grid;
 }
 
@@ -67,8 +68,6 @@ function gridDisplay(grid) {
     }
 }
 
-
-
 plusX.addEventListener("input", () => {
     targetX = plusX.value;
     grid = gridMaker(targetX, targetY);
@@ -76,7 +75,7 @@ plusX.addEventListener("input", () => {
     let gridDiv = document.getElementById("gridOutput");
     gridDiv.innerHTML = "";
     gridDisplay(grid);
-    clicker();
+    roadblockHandler();
 });
 
 plusY.addEventListener("input", () => {
@@ -86,12 +85,15 @@ plusY.addEventListener("input", () => {
     let gridDiv = document.getElementById("gridOutput");
     gridDiv.innerHTML = "";
     gridDisplay(grid);
-    clicker();
+    roadblockHandler();
 });
+
+goalX.addEventListener("input", () => {goalHandler();});
+goalY.addEventListener("input", () => {goalHandler();});
 
 
 gridDisplay(grid);
-clicker();
+roadblockHandler();
 
 function refreshGridInfo() {
     let infoYDiv = document.getElementById("currentSizeY");
@@ -100,7 +102,7 @@ function refreshGridInfo() {
     infoXDiv.innerHTML = "Current Grid Width: " + targetX;
 }
 
-function clicker() {
+function roadblockHandler() {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
@@ -118,28 +120,46 @@ function clicker() {
     }
 }
 
+function goalHandler() {
+    // gets the value of the goal's X and Y
+    let goalLocationX = goalX.value;
+    let goalLocationY = goalY.value;
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            let gridItem = grid[i][j];
+            let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
+            // set the isGoal property of the corresponding gridItem
+            if (goalLocationX == i && goalLocationY == j && gridItem.isRoadBlock == false) {
+                gridItem.isGoal = true;
+            }
+            else {
+                gridItem.isGoal = false;
+            }
+            colorChanger();
+        }
+    }
+}
+
 function colorChanger() {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
-            gridItemDomItem.addEventListener("click", () => {
-                if (gridItem.isGoal === true) {
-                    gridItemDomItem.style.backgroundColor = "Green";
-                }
-                else if (gridItem.isRoadBlock === true) {
-                    gridItemDomItem.style.backgroundColor = "rgb(26, 26, 26)";
-                } 
-                else if (gridItem.isStart === true) {
-                    gridItemDomItem.style.backgroundColor = "Red";
-                }
-                else if (gridItem.isVisited === true) {
-                    gridItemDomItem.style.backgroundColor = "Peru";
-                }
-                else {
-                    gridItemDomItem.style.backgroundColor = "Gray";
-                }
-            });
-        }
+            if (gridItem.isGoal === true) {
+                gridItemDomItem.style.backgroundColor = "Green";
+            }
+            else if (gridItem.isRoadBlock === true) {
+                gridItemDomItem.style.backgroundColor = "rgb(26, 26, 26)";
+            } 
+            else if (gridItem.isStart === true) {
+                gridItemDomItem.style.backgroundColor = "Red";
+            }
+            else if (gridItem.isVisited === true) {
+                gridItemDomItem.style.backgroundColor = "Peru";
+            }
+            else {
+                gridItemDomItem.style.backgroundColor = "Gray";
+            }
+    }
     }
 }
