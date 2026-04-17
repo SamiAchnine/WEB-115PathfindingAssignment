@@ -1,5 +1,5 @@
-let plusX = document.getElementById("plusX");
-let plusY = document.getElementById("plusY");
+let plusX = document.getElementById("X");
+let plusY = document.getElementById("Y");
 let refreshGrid = document.getElementById("refreshGrid");
 let targetX = 5;
 let targetY = 5;
@@ -66,29 +66,28 @@ function gridDisplay(grid) {
 }
 
 plusX.addEventListener("click", () => {
-    
-    targetX += 1;
-    refreshGridInfo();
+    targetX = plusX.value;
     grid = gridMaker(targetX, targetY);
-});
-plusY.addEventListener("click", () => {
-    
-    targetY += 1;
-    refreshGridInfo();
-    grid = gridMaker(targetX, targetY);
-});
-
-refreshGrid.addEventListener("click", () => {
     refreshGridInfo();
     let gridDiv = document.getElementById("gridOutput");
     gridDiv.innerHTML = "";
     gridDisplay(grid);
 });
 
+plusY.addEventListener("click", () => {
+    targetY = plusY.value;
+    grid = gridMaker(targetX, targetY);
+    refreshGridInfo();
+    let gridDiv = document.getElementById("gridOutput");
+    gridDiv.innerHTML = "";
+    gridDisplay(grid);
+});
+
+
 gridDisplay(grid);
 function refreshGridInfo() {
-    let infoYDiv = document.getElementById("sizeY");
+    let infoYDiv = document.getElementById("currentSizeY");
     infoYDiv.innerHTML = "Current Grid Height: " + targetY;
-    let infoXDiv = document.getElementById("sizeX");
+    let infoXDiv = document.getElementById("currentSizeX");
     infoXDiv.innerHTML = "Current Grid Width: " + targetX;
 }
