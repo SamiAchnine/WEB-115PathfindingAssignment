@@ -108,11 +108,11 @@ function roadblockHandler() {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
             gridItemDomItem.addEventListener("click", () => {
-                if (gridItem.isRoadBlock === true) {
-                    gridItem.isRoadBlock = false;
+                if (gridItem.isRoadBlock === false && gridItem.isGoal === false) {
+                    gridItem.isRoadBlock = true;
                 }
                 else {
-                    gridItem.isRoadBlock = true;
+                    gridItem.isRoadBlock = false;
                 }
                 colorChanger();
             });
