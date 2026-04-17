@@ -38,7 +38,7 @@ function gridDisplay(grid) {
     tableProto.id = "gridTable";
     gridDiv.append(tableProto);
     let table = document.getElementById("gridTable");
-    
+
     for (let i = 0; i < grid.length; i++) {
         let gridRow = document.createElement("tr");
         gridRow.id = "gridRow" + i;
@@ -67,7 +67,9 @@ function gridDisplay(grid) {
     }
 }
 
-plusX.addEventListener("click", () => {
+
+
+plusX.addEventListener("input", () => {
     targetX = plusX.value;
     grid = gridMaker(targetX, targetY);
     refreshGridInfo();
@@ -76,7 +78,7 @@ plusX.addEventListener("click", () => {
     gridDisplay(grid);
 });
 
-plusY.addEventListener("click", () => {
+plusY.addEventListener("input", () => {
     targetY = plusY.value;
     grid = gridMaker(targetX, targetY);
     refreshGridInfo();
@@ -87,9 +89,20 @@ plusY.addEventListener("click", () => {
 
 
 gridDisplay(grid);
+
 function refreshGridInfo() {
     let infoYDiv = document.getElementById("currentSizeY");
     infoYDiv.innerHTML = "Current Grid Height: " + targetY;
     let infoXDiv = document.getElementById("currentSizeX");
     infoXDiv.innerHTML = "Current Grid Width: " + targetX;
+}
+
+for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+        let gridItem = grid[i][j];
+        let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
+        gridItemDomItem.addEventListener("click", () => {
+            console.log("Yep, it's me, the cell at " + i + ", " + j + " being clicked on!")
+        })
+    }
 }
