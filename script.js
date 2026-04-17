@@ -37,14 +37,16 @@ function gridDisplay(grid) {
     let tableProto = document.createElement("table");
     tableProto.id = "gridTable";
     gridDiv.append(tableProto);
-    let table = document.getElementById("gridTable")
+    let table = document.getElementById("gridTable");
+    
     for (let i = 0; i < grid.length; i++) {
         let gridRow = document.createElement("tr");
-        gridRow.id = "gridRow"
-        // gridItem.addEventListener("click", () => {tileChanger()});
+        gridRow.id = "gridRow" + i;
         table.append(gridRow);
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = document.createElement("td");
+            gridItem.id = "gridItem" + i + "," + j;
+            gridItem.textContent = i + ", " + j;
             gridRow.append(gridItem);
             if (grid[i][j].isGoal === true) {
                 gridItem.style.backgroundColor = "Green";
