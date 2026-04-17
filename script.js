@@ -76,6 +76,7 @@ plusX.addEventListener("input", () => {
     let gridDiv = document.getElementById("gridOutput");
     gridDiv.innerHTML = "";
     gridDisplay(grid);
+    clicker();
 });
 
 plusY.addEventListener("input", () => {
@@ -85,10 +86,12 @@ plusY.addEventListener("input", () => {
     let gridDiv = document.getElementById("gridOutput");
     gridDiv.innerHTML = "";
     gridDisplay(grid);
+    clicker();
 });
 
 
 gridDisplay(grid);
+clicker();
 
 function refreshGridInfo() {
     let infoYDiv = document.getElementById("currentSizeY");
@@ -97,12 +100,16 @@ function refreshGridInfo() {
     infoXDiv.innerHTML = "Current Grid Width: " + targetX;
 }
 
-for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[i].length; j++) {
-        let gridItem = grid[i][j];
-        let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
-        gridItemDomItem.addEventListener("click", () => {
-            console.log("Yep, it's me, the cell at " + i + ", " + j + " being clicked on!")
-        })
+function clicker() {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            let gridItem = grid[i][j];
+            let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
+            gridItemDomItem.addEventListener("click", () => {
+                console.log("Yep, it's me, the cell at " + i + ", " + j + " being clicked on!")
+            });
+        }
     }
+
 }
+
