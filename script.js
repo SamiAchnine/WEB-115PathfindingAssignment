@@ -2,7 +2,8 @@ let plusX = document.getElementById("X");
 let plusY = document.getElementById("Y");
 let goalX = document.getElementById("goalX");
 let goalY = document.getElementById("goalY");
-let refreshGrid = document.getElementById("refreshGrid");
+let startX = document.getElementById("startX");
+let startY = document.getElementById("startY");
 let targetX = 5;
 let targetY = 5;
 let grid = [];
@@ -91,6 +92,9 @@ plusY.addEventListener("input", () => {
 goalX.addEventListener("input", () => {goalHandler();});
 goalY.addEventListener("input", () => {goalHandler();});
 
+startX.addEventListener("input", () => {startHandler();});
+startY.addEventListener("input", () => {startHandler();});
+
 
 gridDisplay(grid);
 roadblockHandler();
@@ -121,19 +125,39 @@ function roadblockHandler() {
 }
 
 function goalHandler() {
-    // gets the value of the goal's X and Y
+    // gets the value of the goal input's X and Y
     let goalLocationX = goalX.value;
     let goalLocationY = goalY.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
-            // set the isGoal property of the corresponding gridItem
-            if (goalLocationX == i && goalLocationY == j && gridItem.isRoadBlock == false) {
+            // set the isGoal property of the corresponding gridItem 
+            if (goalLocationX == i && goalLocationY == j && gridItem.isRoadBlock === false) {
                 gridItem.isGoal = true;
             }
             else {
                 gridItem.isGoal = false;
+            }
+            colorChanger();
+        }
+    }
+}
+
+function startHandler() {
+    // gets the value of the start input's X and Y
+    let startLocationX = startX.value;
+    let startLocationY = startY.value;
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            let gridItem = grid[i][j];
+            let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
+            // set the isStart property of the corresponding item
+            if (startLocationX == i && startLocationY == j && gridItem.isRoadBlock == false) {
+                gridItem.isStart = true;
+            }
+            else {
+                gridItem.isStart = false;
             }
             colorChanger();
         }

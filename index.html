@@ -8,13 +8,16 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
+    <div class="legallyMandatedFlexboxContainer">
     <div id="info">
         <p id="currentSizeX">Current Grid Width: </p>
         <p id="currentSizeY">Current Grid Height: </p>
     </div>
     <div id="gridOutput"></div>
+    </div>
     
-    <div id="controls">
+    
+    <div id="controls" class="tooltip">
         <label for="X">Width</label>
         <input type="number" id="X" name="X">
         <br>
@@ -27,6 +30,14 @@
         <label for="goalY">Goal Y Position</label>
         <input type="number" id="goalY" name="goalY">
         <br>
+        <label for="startX">Start X Position</label>
+        <input type="number" id="startX" name="startX">
+        <br>
+        <label for="startY">Start Y Position</label>
+        <input type="number" id="startY" name="startX">
+        <br>
+        <span class="tooltiptext">Please modify these values for them to reflect in the above graph</span>
     </div>
+    
 </body>
 </html>

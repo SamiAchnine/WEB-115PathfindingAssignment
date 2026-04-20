@@ -3,3 +3,60 @@ table, th, td {
     border-collapse: collapse;
     padding: 16px;
 }
+
+#legallyMandatedFlexboxContainer {
+    display: flex;
+}
+
+#info {
+    width: 13.135%;
+    float: right;
+    text-align: right;
+}
+
+#controls > input{
+    border-radius: 75px;
+}
+
+#controls > label {
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 1em;
+}
+
+#gridOutput {
+    cursor: cell;
+}
+
+/* code copied from w3schools https://www.w3schools.com/css/css_tooltip.asp */
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 130px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1s;
+  font-weight: bold;
+  font-family: sans-serif;
+  user-select: none;
+  cursor: default;
+}
+
+/* Show the tooltip text on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
