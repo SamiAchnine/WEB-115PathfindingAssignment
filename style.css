@@ -44,6 +44,7 @@ table, th, td {
   background-color: rgba(0, 0, 0, 0.75);
   color: #ffffff;
   text-align: center;
+  margin-top: 25px;
   padding: 10px;
   border-radius: 6px;
   z-index: 1;
@@ -53,6 +54,7 @@ table, th, td {
   font-family: sans-serif;
   user-select: none;
   cursor: default;
+  
 }
 
 /* Show the tooltip text on hover */

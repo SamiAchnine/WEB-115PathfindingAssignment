@@ -31,7 +31,6 @@ function gridMaker(targetX, targetY) {
     return grid;
 }
 
-grid = gridMaker(targetX, targetY);
 
 
 function gridDisplay(grid) {
@@ -78,7 +77,6 @@ plusX.addEventListener("input", () => {
     gridDisplay(grid);
     roadblockHandler();
 });
-
 plusY.addEventListener("input", () => {
     targetY = plusY.value;
     grid = gridMaker(targetX, targetY);
@@ -88,17 +86,6 @@ plusY.addEventListener("input", () => {
     gridDisplay(grid);
     roadblockHandler();
 });
-
-goalX.addEventListener("input", () => {goalHandler();});
-goalY.addEventListener("input", () => {goalHandler();});
-
-startX.addEventListener("input", () => {startHandler();});
-startY.addEventListener("input", () => {startHandler();});
-
-
-gridDisplay(grid);
-roadblockHandler();
-
 function refreshGridInfo() {
     let infoYDiv = document.getElementById("currentSizeY");
     infoYDiv.innerHTML = "Current Grid Height: " + targetY;
@@ -106,13 +93,22 @@ function refreshGridInfo() {
     infoXDiv.innerHTML = "Current Grid Width: " + targetX;
 }
 
+goalX.addEventListener("input", () => {goalHandler();});
+goalY.addEventListener("input", () => {goalHandler();});
+startX.addEventListener("input", () => {startHandler();});
+startY.addEventListener("input", () => {startHandler();});
+
+gridDisplay(grid);
+roadblockHandler();
+
+
 function roadblockHandler() {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
             gridItemDomItem.addEventListener("click", () => {
-                if (gridItem.isRoadBlock === false && gridItem.isGoal === false) {
+                if (gridItem.isRoadBlock == false && gridItem.isGoal == false && gridItem.isStart == false) {
                     gridItem.isRoadBlock = true;
                 }
                 else {
@@ -133,7 +129,7 @@ function goalHandler() {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
             // set the isGoal property of the corresponding gridItem 
-            if (goalLocationX == i && goalLocationY == j && gridItem.isRoadBlock === false) {
+            if (goalLocationX == i && goalLocationY == j && gridItem.isRoadBlock == false && gridItem.isStart == false && gridItem.isGoal == false) {
                 gridItem.isGoal = true;
             }
             else {
@@ -153,7 +149,7 @@ function startHandler() {
             let gridItem = grid[i][j];
             let gridItemDomItem = document.getElementById("gridItem" + i + "," + j);
             // set the isStart property of the corresponding item
-            if (startLocationX == i && startLocationY == j && gridItem.isRoadBlock == false) {
+            if (startLocationX == i && startLocationY == j && gridItem.isRoadBlock == false && gridItem.isStart == false && gridItem.isGoal == false) {
                 gridItem.isStart = true;
             }
             else {
