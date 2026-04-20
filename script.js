@@ -9,12 +9,26 @@ let targetY = 5;
 let grid = [];
 
 class Tile {
-    constructor(isVisited, isStart, isGoal, isRoadBlock) {
+    constructor(isVisited, isStart, isGoal, isRoadBlock, myLocation) {
         this.children = [];
         this.isVisited = isVisited;
         this.isStart = isStart;
         this.isGoal = isGoal;
         this.isRoadBlock = isRoadBlock;
+        this.myLocation = myLocation;
+    }
+    kidnap() {
+        this.children = Array.of(
+            // cell to right
+            grid[this.myLocation[0] + 1][this.myLocation[1]],
+            // cell to left
+            grid[this.myLocation[0] - 1][this.myLocation[1]],
+            // cell above
+            grid[this.myLocation[0]][this.myLocation[1] + 1],
+            // cell below
+            grid[this.myLocation[0]][this.myLocation[1] - 1]
+        );
+        console.log(this.children);
     }
 }
 
@@ -25,7 +39,7 @@ function gridMaker(targetX, targetY) {
         grid[i] = [];
         for (let j = 0; j < targetX; j++) {
             // make the tiles in each row
-            grid[i][j] = new Tile(false, false, false, false);
+            grid[i][j] = new Tile(false, false, false, false, Array.of(i, j));
         }
     }
     return grid;
@@ -34,6 +48,7 @@ function gridMaker(targetX, targetY) {
 
 
 function gridDisplay(grid) {
+    // get DOM elements ready
     let gridDiv = document.getElementById("gridOutput");
     let tableProto = document.createElement("table");
     tableProto.id = "gridTable";
@@ -41,7 +56,9 @@ function gridDisplay(grid) {
     let table = document.getElementById("gridTable");
 
     for (let i = 0; i < grid.length; i++) {
+        // creates table first
         let gridRow = document.createElement("tr");
+        // id is the word gridRow + number of row, will make kidnapping easier
         gridRow.id = "gridRow" + i;
         table.append(gridRow);
         for (let j = 0; j < grid[i].length; j++) {
