@@ -139,8 +139,8 @@ function roadblockHandler() {
 
 function goalHandler() {
     // gets the value of the goal input's X and Y
-    let goalLocationX = goalX.value;
-    let goalLocationY = goalY.value;
+    let goalLocationY = goalX.value;
+    let goalLocationX = goalY.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
@@ -159,8 +159,8 @@ function goalHandler() {
 
 function startHandler() {
     // gets the value of the start input's X and Y
-    let startLocationX = startX.value;
-    let startLocationY = startY.value;
+    let startLocationY = startX.value;
+    let startLocationX = startY.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
