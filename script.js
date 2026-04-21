@@ -149,17 +149,18 @@ pathfind.addEventListener("click", () => {
         if (grid[goalX.value][goalY.value].isGoal == false) {
             throw new Error("Internal error - goal is not actually goal. \nIf you as a user have encountered this error, make sure the goal is actually showing up as green on the graph.");
         }
-        else if (grid[startX.value][startY.value].isStart == false) {
+        else if (grid[startY.value][startX.value].isStart == false) {
             throw new Error("Internal error - start is not actually start. \nIf you as a user have encountered this error, make sure the start is actually showing up as red on the graph.");
         }
         else {
             console.log("All values appear to be legal! Continuing to pathfinding now...");            
         }
+        BFS()
     }
     catch (error) {
         window.alert("There has been an error with a position:\n" + '"' + error + '"' + "\nPlease fix this error before trying again");
     }
-    // run the function which actually does the pathfinding
+    
 });
 
 gridDisplay(grid);
@@ -245,5 +246,14 @@ function colorChanger() {
                 gridItemDomItem.style.backgroundColor = "Gray";
             }
     }
+    }
+}
+
+function BFS() {
+    let queue = [];
+    let startTile = grid[startX.value][startY.value];
+    startTile.kidnap()
+    for (let i = 0; i < startTile.children.length; i++) {
+        console.log(startTile.children[i]);  
     }
 }
