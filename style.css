@@ -14,8 +14,14 @@ table, th, td {
     text-align: right;
 }
 
-#controls > input{
+#controls > input {
     border-radius: 75px;
+}
+
+#controls > button {
+    border-radius: 75px;
+    padding: 6px;
+    font-weight: bold;
 }
 
 #controls > label {

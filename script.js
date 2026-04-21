@@ -4,6 +4,8 @@ let goalX = document.getElementById("goalX");
 let goalY = document.getElementById("goalY");
 let startX = document.getElementById("startX");
 let startY = document.getElementById("startY");
+let pathfind = document.getElementById("pathfind");
+let pathfindFake = document.getElementById("pathfindFake");
 let targetX = 5;
 let targetY = 5;
 let grid = [];
@@ -93,6 +95,7 @@ plusX.addEventListener("input", () => {
     gridDiv.innerHTML = "";
     gridDisplay(grid);
     roadblockHandler();
+    colorChanger();
 });
 plusY.addEventListener("input", () => {
     targetY = plusY.value;
@@ -102,6 +105,7 @@ plusY.addEventListener("input", () => {
     gridDiv.innerHTML = "";
     gridDisplay(grid);
     roadblockHandler();
+    colorChanger();
 });
 function refreshGridInfo() {
     let infoYDiv = document.getElementById("currentSizeY");
@@ -114,6 +118,38 @@ goalX.addEventListener("input", () => {goalHandler();});
 goalY.addEventListener("input", () => {goalHandler();});
 startX.addEventListener("input", () => {startHandler();});
 startY.addEventListener("input", () => {startHandler();});
+pathfindFake.addEventListener("click", () => {
+    pathfindFake.style.backgroundColor = "#2b2b2b";
+    window.alert("A* pathfinding functionality is not implemented. I do not want to implement this. I'm sorry.");
+    pathfindFake.disabled = true;
+    pathfindFake.style.cursor = "not-allowed";
+});
+pathfind.addEventListener("click", () => {
+    // VALIDATE ALL INPUTS
+    // check if goals are within range
+    try {
+        if (goalX.value > plusX.value || goalX.value < 0 || goalX.value == plusX.value || goalX.value == "") {
+            throw new Error("Illegal Goal X value");
+        }
+        else if (goalY.value > plusY.value || goalY.value < 0 || goalY.value == plusY.value || goalY.value == "") {
+            throw new Error("Illegal Goal Y value");
+        }
+        // check if starts are in range
+        else if (startX.value > plusX.value || startX.value < 0 || startX.value == plusX.value || startX.value == "") {
+            throw new Error("Illegal Start X value");
+        }
+        else if (startY.value > plusY.value || startY.value < 0 || startY.value == plusY.value || startY.value == "") {
+            throw new Error("Illegal Start Y value");
+        }
+        else {
+            console.log("All values appear to be legal! Continuing...");
+        }
+    }
+    catch (error) {
+        window.alert("There has been an error with a position:\n" + '"' + error + '"' + "\nPlease fix all of them before continuing");
+    }
+    // run the function which actually does the pathfinding
+});
 
 gridDisplay(grid);
 roadblockHandler();
