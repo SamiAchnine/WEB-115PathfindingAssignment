@@ -40,7 +40,7 @@ table, th, td {
 .tooltip {
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: default;
 }
 
 /* Tooltip text */
