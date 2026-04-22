@@ -20,16 +20,21 @@ class Tile {
         this.myLocation = myLocation;
     }
     kidnap() {
-        this.children = Array.of(
-            // cell to right
-            grid[this.myLocation[0] + 1][this.myLocation[1]],
-            // cell to left
-            grid[this.myLocation[0] - 1][this.myLocation[1]],
-            // cell above
-            grid[this.myLocation[0]][this.myLocation[1] + 1],
-            // cell below
-            grid[this.myLocation[0]][this.myLocation[1] - 1]
-        );
+        // look for if tile exists (border tiles)
+        let rightTile = grid[this.myLocation[0] + 1]?.[this.myLocation[1]];
+        let leftTile = grid[this.myLocation[0] - 1]?.[this.myLocation[1]];
+        let upTile = grid[this.myLocation[0]]?.[this.myLocation[1] + 1];
+        let downTile = grid[this.myLocation[0]]?.[this.myLocation[1] - 1];
+        let items = [rightTile, leftTile, upTile, downTile];
+        for (const item of items) {
+            if (item === undefined) {
+                continue
+            }
+            else {
+                this.children.push(item);
+            }
+        }
+       return this.children;
     }
 }
 
@@ -245,7 +250,6 @@ function BFS() {
     let currentNode = queue[0];
 
     while (queue.length !== 0) {
-        
         if (currentNode.isGoal == true) {
             console.log("I found it!\n" + currentNode);
             break;
@@ -260,6 +264,7 @@ function BFS() {
             }
             else {
                 console.log("node is either roadblock or has been visited");
+                queue.shift();
             }
         }
         colorChanger();
