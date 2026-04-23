@@ -153,6 +153,7 @@ pathfind.addEventListener("click", () => {
     }
     catch (error) {
         window.alert("There has been an error with a position:\n" + '"' + error + '"' + "\nPlease fix this error before trying again");
+        return;
     }
     BFS()
 });
@@ -181,8 +182,8 @@ function roadblockHandler() {
 
 function goalHandler() {
     // gets the value of the goal input's X and Y
-    let goalLocationY = goalX.value;
-    let goalLocationX = goalY.value;
+    let goalLocationY = goalY.value;
+    let goalLocationX = goalX.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
@@ -201,8 +202,8 @@ function goalHandler() {
 
 function startHandler() {
     // gets the value of the start input's X and Y
-    let startLocationY = startX.value;
-    let startLocationX = startY.value;
+    let startLocationY = startY.value;
+    let startLocationX = startX.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
@@ -245,9 +246,9 @@ function colorChanger() {
 
 function BFS() {
     let queue = [];
-    let rootNode = grid[startX.value][startY.value];
+    let rootNode = grid[startY.value][startX.value];
     queue.push(rootNode);
-    
+
     while (queue.length !== 0) {
         let currentNode = queue[0];
         if (currentNode.isGoal == true) {
@@ -255,11 +256,16 @@ function BFS() {
             break;
         }
         else {
-            if (!currentNode.isVisited || !currentNode.isRoadBlock) {
+            if (!currentNode.isVisited && !currentNode.isRoadBlock) {
                 queue.shift();
                 let currentChildren = currentNode.kidnap();
-                queue.push(currentChildren);
+                queue.push(...currentChildren);
                 console.log(currentChildren);
+                currentNode.isVisited = true;
+            }
+            else if (currentNode.isRoadBlock) {
+                console.log("node is roadblock");
+                queue.shift();
                 currentNode.isVisited = true;
             }
             else {
