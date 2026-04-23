@@ -247,9 +247,9 @@ function BFS() {
     let queue = [];
     let rootNode = grid[startX.value][startY.value];
     queue.push(rootNode);
-    let currentNode = queue[0];
-
+    
     while (queue.length !== 0) {
+        let currentNode = queue[0];
         if (currentNode.isGoal == true) {
             console.log("I found it!\n" + currentNode);
             break;
