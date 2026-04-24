@@ -13,11 +13,13 @@ let grid = [];
 class Tile {
     constructor(isVisited, isStart, isGoal, isRoadBlock, myLocation) {
         this.children = [];
+        this.parent = [];
         this.isVisited = isVisited;
         this.isStart = isStart;
         this.isGoal = isGoal;
         this.isRoadBlock = isRoadBlock;
         this.myLocation = myLocation;
+        this.isPath = false;
     }
     kidnap() {
         // look for if tile exists (border tiles)
@@ -133,17 +135,17 @@ pathfind.addEventListener("click", () => {
     // VALIDATE ALL INPUTS
     // check if goals are within range
     try {
-        if (goalX.value > plusX.value || goalX.value < 0 || goalX.value == plusX.value || goalX.value == "") {
+        if (Number(goalX.value) >= Number(plusX.value) || Number(goalX.value) < 0 || goalX.value == "") {
             throw new Error("Illegal Goal X value");
         }
-        else if (goalY.value > plusY.value || goalY.value < 0 || goalY.value == plusY.value || goalY.value == "") {
+        else if (Number(goalY.value) >= Number(plusY.value) || Number(goalY.value) < 0 || goalY.value == "") {
             throw new Error("Illegal Goal Y value");
         }
         // check if starts are in range
-        else if (startX.value > plusX.value || startX.value < 0 || startX.value == plusX.value || startX.value == "") {
+        else if (Number(startX.value) >= Number(plusX.value) || Number(startX.value) < 0 || startX.value == "") {
             throw new Error("Illegal Start X value");
         }
-        else if (startY.value > plusY.value || startY.value < 0 || startY.value == plusY.value || startY.value == "") {
+        else if (Number(startY.value) >= Number(plusY.value) || Number(startY.value) < 0 || startY.value == "") {
             throw new Error("Illegal Start Y value");
         }
         else {
@@ -155,7 +157,7 @@ pathfind.addEventListener("click", () => {
         window.alert("There has been an error with a position:\n" + '"' + error + '"' + "\nPlease fix this error before trying again");
         return;
     }
-    BFS()
+    BFS(grid[startX.value][startY.value]);
 });
 
 gridDisplay(grid);
@@ -237,39 +239,48 @@ function colorChanger() {
             else if (gridItem.isVisited === true) {
                 gridItemDomItem.style.backgroundColor = "Peru";
             }
+            else if (gridItem.isPath === true) {
+                gridItemDomItem.style.backgroundColor = "Aqua";
+            }
             else {
                 gridItemDomItem.style.backgroundColor = "Gray";
             }
-    }
+        }
     }
 }
 
-function BFS() {
+function BFS(startNode) {
     let queue = [];
-    let rootNode = grid[startY.value][startX.value];
-    queue.push(rootNode);
+    let parents = [];
+    queue.push(startNode);
 
     while (queue.length !== 0) {
         let currentNode = queue[0];
         if (currentNode.isGoal == true) {
-            console.log("I found it!\n" + currentNode);
+            console.log("I found it! " + currentNode.myLocation);
+            let currentChildren = currentNode.kidnap();
+            console.log(currentChildren);
             break;
         }
         else {
             if (!currentNode.isVisited && !currentNode.isRoadBlock) {
+                currentNode.isVisited = true;
                 queue.shift();
                 let currentChildren = currentNode.kidnap();
                 queue.push(...currentChildren);
-                console.log(currentChildren);
+                console.log("next node: " + currentChildren[0].myLocation);
+                currentChildren[0].parent = currentNode;
+                console.log("next node parent: " + currentChildren[0].parent.myLocation);
+                parents.push(currentChildren[0].parent);
                 currentNode.isVisited = true;
             }
             else if (currentNode.isRoadBlock) {
-                console.log("node is roadblock");
+                console.log("node is roadblock " + currentNode.myLocation);
                 queue.shift();
                 currentNode.isVisited = true;
             }
             else {
-                console.log("node is either roadblock or has been visited");
+                console.log("node has been visited " + currentNode.myLocation);
                 queue.shift();
             }
         }
