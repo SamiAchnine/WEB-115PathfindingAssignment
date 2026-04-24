@@ -155,7 +155,6 @@ pathfind.addEventListener("click", () => {
     }
     catch (error) {
         window.alert("There has been an error with a position:\n" + '"' + error + '"' + "\nPlease fix this error before trying again");
-        return;
     }
     BFS(grid[startX.value][startY.value]);
 });
@@ -184,8 +183,8 @@ function roadblockHandler() {
 
 function goalHandler() {
     // gets the value of the goal input's X and Y
-    let goalLocationY = goalY.value;
-    let goalLocationX = goalX.value;
+    let goalLocationY = goalX.value;
+    let goalLocationX = goalY.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
@@ -204,8 +203,8 @@ function goalHandler() {
 
 function startHandler() {
     // gets the value of the start input's X and Y
-    let startLocationY = startY.value;
-    let startLocationX = startX.value;
+    let startLocationY = startX.value;
+    let startLocationX = startY.value;
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let gridItem = grid[i][j];
@@ -251,9 +250,15 @@ function colorChanger() {
 
 function BFS(startNode) {
     let queue = [];
+<<<<<<< HEAD
     let parents = [];
     queue.push(startNode);
 
+=======
+    let rootNode = grid[startX.value][startY.value];
+    queue.push(rootNode);
+    
+>>>>>>> parent of b1752cd (FINALLY THE PATHFINDING WORKS YAYYAYYAYAYAYAYAY)
     while (queue.length !== 0) {
         let currentNode = queue[0];
         if (currentNode.isGoal == true) {
@@ -263,6 +268,7 @@ function BFS(startNode) {
             break;
         }
         else {
+<<<<<<< HEAD
             if (!currentNode.isVisited && !currentNode.isRoadBlock) {
                 currentNode.isVisited = true;
                 queue.shift();
@@ -279,6 +285,15 @@ function BFS(startNode) {
                 queue.shift();
                 currentNode.isVisited = true;
             }
+=======
+            if (!currentNode.isVisited || !currentNode.isRoadBlock) {
+                queue.shift();
+                let currentChildren = currentNode.kidnap();
+                queue.push(currentChildren);
+                console.log(currentChildren);
+                currentNode.isVisited = true;
+            }
+>>>>>>> parent of b1752cd (FINALLY THE PATHFINDING WORKS YAYYAYYAYAYAYAYAY)
             else {
                 console.log("node has been visited " + currentNode.myLocation);
                 queue.shift();
